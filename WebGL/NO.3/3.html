@@ -139,7 +139,10 @@
 
 
             //导入平面纹理
-            var texturePlane = THREE.ImageUtils.loadTexture('plane.jpg');
+            var texturePlane = THREE.ImageUtils.loadTexture('plane.jpg',{}, function() {
+                renderer.render(scene, camera);
+            });
+ 
             texturePlane.wrapS = texturePlane.wrapT = THREE.RepeatWrapping;//指定两个方向都重复
             texturePlane.repeat.set(10, 10);
             //添加平面

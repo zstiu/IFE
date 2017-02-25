@@ -43,25 +43,42 @@
             //设置环境光  白色
             //scene.add(new THREE.AmbientLight(0x778899))
 
+            //侧面纹理
+            var materials = [];
+            for (var i = 0; i < 6; ++i) {
+                materials.push(new THREE.MeshBasicMaterial({
+                    map: THREE.ImageUtils.loadTexture('ce'+i+'.png',
+                        {}, function() {
+                            renderer.render(scene, camera);
+                        }),
+                    overdraw: true
+                }));
+            };
+
             // a cube in the scene
             var cube = new THREE.Mesh(new THREE.CubeGeometry(3, 2, 2),
-                new THREE.MeshLambertMaterial({
-                    color: 0x778899
-                    //wireframe: true
-                })
+                new THREE.MeshFaceMaterial(materials)
             );
             //cube.position.set(3, 1, 2);
             cube.position.set(1.5, 1.55, 1);//原点偏移量
             cube.castShadow = true; //允许阴影
 
             scene.add(cube);
-            
-            
+
+            //添加的轮胎纹理
+            var texture = THREE.ImageUtils.loadTexture('wheel1.jpg',{},function () {
+                renderer.render(scene, camera);
+            });
+            texture.wrapT = texture.wrapS = THREE.RepeatWrapping;//T方向重复
+            texture.repeat.set(3, 1);
+
+            //添加轮胎函数
             var addWheel = function (radius, tube, radialSegments, tubularSegments, x, y ,z) {
                 //var cube = new THREE.Mesh(new THREE.TorusGeometry(0.4, 0.1, 20, 20),
                 var cube1 = new THREE.Mesh(new THREE.TorusGeometry(radius, tube, radialSegments, tubularSegments),
                     new THREE.MeshPhongMaterial({
-                        color: 0x778899
+                        map: texture,
+                        //color: 0x778899
                         //wireframe: true
                     })
                 );
@@ -120,10 +137,16 @@
             scene.add(line1);
             scene.add(line2);
 
+
+            //导入平面纹理
+            var texturePlane = THREE.ImageUtils.loadTexture('plane.jpg');
+            texturePlane.wrapS = texturePlane.wrapT = THREE.RepeatWrapping;//指定两个方向都重复
+            texturePlane.repeat.set(10, 10);
             //添加平面
             var plane = new THREE.Mesh(new THREE.PlaneGeometry(20, 20),
                 new THREE.MeshLambertMaterial({
                     color: 0x6B8E23,
+                    map: texturePlane
                     //wireframe: true
                 })
             );

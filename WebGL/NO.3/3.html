@@ -41,12 +41,12 @@
             scene.add(light);
 
             //设置环境光  白色
-            //scene.add(new THREE.AmbientLight(0x778899))
+            scene.add(new THREE.AmbientLight(0x778899))
 
             //侧面纹理
             var materials = [];
             for (var i = 0; i < 6; ++i) {
-                materials.push(new THREE.MeshBasicMaterial({
+                materials.push(new THREE.MeshLambertMaterial({
                     map: THREE.ImageUtils.loadTexture('ce'+i+'.png',
                         {}, function() {
                             renderer.render(scene, camera);
@@ -142,7 +142,7 @@
             var texturePlane = THREE.ImageUtils.loadTexture('plane.jpg',{}, function() {
                 renderer.render(scene, camera);
             });
- 
+
             texturePlane.wrapS = texturePlane.wrapT = THREE.RepeatWrapping;//指定两个方向都重复
             texturePlane.repeat.set(10, 10);
             //添加平面

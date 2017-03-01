@@ -1,0 +1,456 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <script type="text/javascript" src="three.js"></script>
+    <script type="text/javascript" src="TrackballControls.js"></script>
+    <script type="text/javascript" src="stats.min.js"></script>
+    <style>canvas { width: 100%; height: 100% }</style>
+    <script type="text/javascript">
+
+
+
+
+        function init() {
+//            var click1 = document.getElementById('1');
+//            var click2 = document.getElementById('2');
+//            var click3 = document.getElementById('3');
+//            click1.click = function () {
+//
+//            }
+
+
+
+            function render() {
+                renderer.render( scene, camera );
+                stats.update();
+            }
+            // renderer
+            var renderer = new THREE.WebGLRenderer({
+                canvas: document.getElementById('mainCanvas')
+            });
+            renderer.shadowMapEnabled = true;//开启阴影
+            renderer.shadowMapSoft = true;//软阴影
+            renderer.setClearColor(0xC0C0C0); // black
+
+            //监听fps
+            var stats;
+            stats = new Stats();
+            document.body.appendChild( stats.dom );
+
+            // scene
+            var scene = new THREE.Scene();
+
+            // camera
+            var camera = new THREE.PerspectiveCamera(400, window.innerWidth/window.innerHeight, 1, 500);
+            camera.position.set(0, 5, 10);
+            camera.lookAt({x:0,y:0,z:0});
+
+            //设置监听camera
+            //各个参数的意思(函数库用起来真爽)
+            var controls = new THREE.TrackballControls( camera );
+            controls.rotateSpeed = 1.0;
+            controls.zoomSpeed = 1.2;
+            controls.panSpeed = 0.8;
+            controls.noZoom = false;
+            controls.noPan = false;
+            controls.staticMoving = true;
+            controls.dynamicDampingFactor = 0.3;
+            controls.keys = [ 65, 83, 68 ];
+            controls.addEventListener( 'change', render );
+
+            //scene.add(camera);
+
+
+            //鼠标交互
+//            var speed = 0;//1/180;
+//            var q_x = 0;
+//            var q_z = 90 * Math.PI/180;
+//
+//            var c_x;
+//            var c_y;
+//            var c_x_moving;
+//            var c_y_moving;
+//            var c_x_change;
+//            var c_y_change;
+//            var tag = false;
+//
+//            document.addEventListener("mousedown", function (e) {
+//                c_x = e.clientX;
+//                c_y = e.clientY;
+//                tag = true;
+//            });
+//            document.addEventListener("mousemove", function (e) {
+//                if (tag == true){
+//                    console.log(e.clientX);
+//                    c_x_moving = e.clientX;
+//                    c_y_moving = e.clientY;
+//
+//                    c_x_change = c_x_moving - c_x;
+//                    speed = c_x_change*0.0001/180;
+//                    move();
+//                }
+//            });
+//            document.addEventListener("mouseup", function (e) {
+//
+//                tag = false;
+//                speed = 0;
+//            });
+//
+//            function move() {
+//                id = setInterval(draw, 20);
+//                //var q = Math.asin(7/10);
+////            var speed = 0;//0.1/180;
+//
+//                //cammere移动产生动画
+//                function draw() {
+//
+//
+//
+//                    camera.position.x = camera.position.x + Math.sqrt(100) * (Math.sin(q_x + speed) - Math.sin(q_x));
+//                    camera.position.z = camera.position.z + Math.sqrt(100) * (Math.sin(q_z + speed) - Math.sin(q_z));
+//                    //camera.position.y = (camera.position.y + 0.01);
+//                    camera.lookAt({x:0,y:0,z:0});
+//                    q_x = q_x + speed;
+//                    q_z = q_z + speed;
+//                    renderer.render(scene, camera);
+//                }
+//            }
+
+
+
+//            id = setInterval(draw, 20);
+//            //var q = Math.asin(7/10);
+////            var speed = 0;//0.1/180;
+//            var speed = 1/180;
+//            var q_x = 0;
+//            var q_z = 90 * Math.PI/180;
+//
+//            //cammere移动产生动画
+//            function draw() {
+//
+//
+//
+//                camera.position.x = camera.position.x + Math.sqrt(100) * (Math.sin(q_x + speed) - Math.sin(q_x));
+//                camera.position.z = camera.position.z + Math.sqrt(100) * (Math.sin(q_z + speed) - Math.sin(q_z));
+//                //camera.position.y = (camera.position.y + 0.01);
+//                camera.lookAt({x:0,y:0,z:0});
+//                q_x = q_x + speed;
+//                q_z = q_z + speed;
+//                renderer.render(scene, camera);
+//            }
+
+
+
+
+            //设置平行光
+            var light = new THREE.DirectionalLight(0xffffff,0.5);
+            light.position.set(-6, 5, 3);
+            light.castShadow = true; //允许阴影
+
+            light.shadowCameraNear = 0;
+            light.shadowCameraVisible = true//开启调试
+
+            scene.add(light);
+
+            //设置环境光  白色
+            scene.add(new THREE.AmbientLight(0x778899));
+
+            //侧面纹理
+            var materials = [];
+            for (var i = 0; i < 6; ++i) {
+                materials.push(new THREE.MeshLambertMaterial({
+                    map: THREE.ImageUtils.loadTexture('ce'+i+'.png',
+                        {}, function() {
+                            renderer.render(scene, camera);
+                        }),
+                    overdraw: true
+                }));
+            };
+
+
+            var cube;
+            var cube1 = new Array;
+            var i = 0;
+
+            /*
+             构造一个指定位置与大小的car
+             */
+            function initCar(a, b, c, x, y, z) {//(3, 2, 2, 0, 0, 0)
+                // a cube in the scene
+                cube = new THREE.Mesh(new THREE.CubeGeometry(a, b, c),
+                    new THREE.MeshFaceMaterial(materials)
+                );
+                //cube.position.set(3, 1, 2);
+                cube.position.set(x, y, z);//原点偏移量
+                cube.castShadow = true; //允许阴影
+
+                scene.add(cube);
+
+                //添加的轮胎纹理
+                var texture = THREE.ImageUtils.loadTexture('wheel1.jpg',{},function () {
+                    renderer.render(scene, camera);
+                });
+                texture.wrapT = texture.wrapS = THREE.RepeatWrapping;//T方向重复
+                texture.repeat.set(3, 1);
+
+                //添加轮胎函数
+                var addWheel = function (radius, tube, radialSegments, tubularSegments, x, y ,z) {
+                    //var cube = new THREE.Mesh(new THREE.TorusGeometry(0.4, 0.1, 20, 20),
+                    cube1[i] = new THREE.Mesh(new THREE.TorusGeometry(radius, tube, radialSegments, tubularSegments),
+                        new THREE.MeshPhongMaterial({
+                            map: texture,
+                            //color: 0x778899
+                            //wireframe: true
+                        })
+                    );
+                    //cube1.position.set(0.5, 0, 0);
+                    cube1[i].position.set( x, y ,z);
+                    cube1[i].receiveShadow = true;
+                    //cube.position.set(1.5, 1, 1);//原点偏移量
+                    cube1[i].castShadow = true; //允许阴影
+                    //cube1.receiveShadow = true;
+
+                    scene.add(cube1[i]);
+                    i++;
+                };
+                addWheel(a/7.5, a/20, 20, 20, x-9*a/30, y-c/2, y-b/2);
+                addWheel(a/7.5, a/20, 20, 20, x+9*a/30, y-c/2, b/2-y);
+                addWheel(a/7.5, a/20, 20, 20, x-9*a/30, y-c/2, b/2-y);
+                addWheel(a/7.5, a/20, 20, 20, x+9*a/30, y-c/2, y-b/2);
+
+            };
+            initCar(3, 2, 2, 0, 0, 0);
+
+
+
+            //添加一条直线的函数整合
+            function getLine(arr1, arr2) {
+                var geometry = new THREE.Geometry();
+                //var geometry2 = new THREE.Geometry();
+                var material = new THREE.LineBasicMaterial( { vertexColors: true } );
+                var color1 = new THREE.Color( 0xFFFFFF ), color2 = new THREE.Color( 0xFFFFFF );
+
+                // 线的材质可以由2点的颜色决定
+                var p1 = new THREE.Vector3( arr1[0], arr1[1], arr1[2] );
+                var p2 = new THREE.Vector3(  arr2[0], arr2[1], arr2[2] );
+                //var p3 = new THREE.Vector3(  0, 100, 0 );
+                //var p4 = new THREE.Vector3(  0, 0, 100 );
+                geometry.vertices.push(p1);
+                geometry.vertices.push(p2);
+                geometry.colors.push( color1, color2 );
+
+                return new THREE.Line( geometry, material, THREE.LinePieces );
+
+            }
+
+            //添加坐标轴
+            scene.add(getLine([-100, 0, 0], [100, 0, 0]));
+            scene.add(getLine([0, -100, 0], [0, 100, 0]));
+            scene.add(getLine([0, 0, -100], [0, 0, 100]));
+
+
+
+            //var geometry = new THREE.Geometry();
+
+//            scene.add(line1);
+//            scene.add(line2);
+
+
+            //导入平面纹理
+            var texturePlane = THREE.ImageUtils.loadTexture('plane.jpg',{}, function() {
+                renderer.render(scene, camera);
+            });
+
+            texturePlane.wrapS = texturePlane.wrapT = THREE.RepeatWrapping;//指定两个方向都重复
+            texturePlane.repeat.set(10, 10);
+            //添加平面
+            var plane = new THREE.Mesh(new THREE.PlaneGeometry(20, 20),
+                new THREE.MeshLambertMaterial({
+                    color: 0x6B8E23,
+                    map: texturePlane
+                    //wireframe: true
+                })
+            );
+            plane.receiveShadow = true;
+            plane.rotation.x = -90 * Math.PI / 180;
+            plane.position.y = -1.55;
+            scene.add(plane);
+
+            // render
+            renderer.setSize(window.innerWidth,window.innerHeight);
+
+            renderer.render(scene, camera);
+
+
+
+
+            //适配浏览器
+            var requestAnimationFrame = window.requestAnimationFrame
+                || window.mozRequestAnimationFrame
+                || window.webkitRequestAnimationFrame
+                || window.msRequestAnimationFrame;
+            window.requestAnimationFrame = requestAnimationFrame;
+//            function draw() {
+//                for (var wheel of cube1){
+//                    wheel.rotation.z = (wheel.rotation.z + 0.01) % (Math.PI * 2);
+//                }
+//                //cube1[3].rotation.z = (cube1[3].rotation.z + 1) % (Math.PI * 2);
+//                renderer.render(scene, camera);
+//                id = requestAnimationFrame(draw);
+//            }
+            function animate() {
+                requestAnimationFrame( animate );
+                controls.update();
+            }
+
+            animate();
+
+
+            var angle = 180;//初始车身的角度
+            var id = null;
+            var point;//转弯时绕的点
+            //前进（轮子旋转，轮子与车身move）
+            function go() {
+                for (var wheel of cube1){
+                    wheel.rotation.z = (wheel.rotation.z + 0.01) % (Math.PI * 2);
+                    wheel.position.x = (wheel.position.x + 0.01*Math.cos(angle*Math.PI/180));
+                    wheel.position.z = (wheel.position.z + 0.01*Math.sin(angle*Math.PI/180));
+                    //wheel.position.y = (wheel.position.y - 0.01*Math.sin(angle));
+                }
+                cube.position.x = (cube.position.x + 0.01*Math.cos(angle*Math.PI/180));
+                cube.position.z = (cube.position.z + 0.01*Math.sin(angle*Math.PI/180));
+                //cube1[3].rotation.z = (cube1[3].rotation.z + 1) % (Math.PI * 2);
+                renderer.render(scene, camera);
+                id = requestAnimationFrame(go);
+            }
+            function back() {
+                for (var wheel of cube1){
+                    wheel.rotation.z = (wheel.rotation.z - 0.01) % (Math.PI * 2);
+                    wheel.position.x = (wheel.position.x - 0.01*Math.cos(angle*Math.PI/180));
+                    wheel.position.z = (wheel.position.z - 0.01*Math.sin(angle*Math.PI/180));
+
+                }
+                cube.position.x = (cube.position.x - 0.01*Math.cos(angle*Math.PI/180));
+                cube.position.z = (cube.position.z - 0.01*Math.sin(angle*Math.PI/180));
+                //cube1[3].rotation.z = (cube1[3].rotation.z + 1) % (Math.PI * 2);
+                renderer.render(scene, camera);
+                id = requestAnimationFrame(back);
+            }
+
+            //左转弯
+            var turnSpeed = 0.04;
+            var turnR = 4;
+            function turnLeft() {
+                //旋转需要绕的点
+                //var line = getLine([cube.position.x, 0, cube.position.z], [cube.position.x, 1, cube.position.z]);
+                point = {
+                    x : cube.position.x + 1.8 * Math.sqrt(2)*Math.sin(angle),
+                    y : cube.position.y,
+                    z : cube.position.z + 1.8 * Math.sqrt(2)*Math.cos(angle)
+                }
+
+
+//                function move() {
+                for (var wheel of cube1){
+                    wheel.rotation.z = (wheel.rotation.z + 0.01) % (Math.PI * 2);
+//                    wheel.position.x = (wheel.position.x + 0.01 * Math.cos(angle * Math.PI/180));
+//                    wheel.position.z = (wheel.position.z + 0.01 * Math.sin(angle * Math.PI/180));
+                    wheel.rotation.y = (wheel.rotation.y + Math.asin(0.01)) % (Math.PI * 2);
+//                        wheel.position.x = (wheel.position.x + 0.01*Math.cos(angle*Math.PI/180));
+//                        wheel.position.z = (wheel.position.z + 0.01*Math.sin(angle*Math.PI/180));
+                    //wheel.rotateOnAxis(line, Math.sqrt(2)/180);
+                }
+                //右前轮
+                cube1[0].position.x = (cube1[0].position.x + (Math.sqrt(Math.pow(turnR+1)+0.81)/turnR) * turnSpeed * Math.cos(angle * Math.PI/180 - Math.atan(0.9/(turnR+1))));
+                cube1[0].position.z = (cube1[0].position.z + (Math.sqrt(Math.pow(turnR+1)+0.81)/turnR) * turnSpeed * Math.sin(angle * Math.PI/180 - Math.atan(0.9/(turnR+1))));
+                //左前轮
+                cube1[1].position.x = (cube1[1].position.x + 0.9 * turnSpeed * Math.cos(angle * Math.PI/180 + Math.PI/2));
+                cube1[1].position.z = (cube1[1].position.z + 0.9 * turnSpeed * Math.sin(angle * Math.PI/180 + Math.PI/2));
+                //左后轮
+                cube1[2].position.x = (cube1[2].position.x + 0.9 * turnSpeed * Math.cos(angle * Math.PI/180 - Math.PI/2));
+                cube1[2].position.z = (cube1[2].position.z + 0.9 * turnSpeed * Math.sin(angle * Math.PI/180 - Math.PI/2));
+                //右后轮
+                cube1[3].position.x = (cube1[3].position.x + Math.sqrt(4.81) * turnSpeed * Math.cos(angle * Math.PI/180 + Math.atan(0.9/turnR)));
+                cube1[3].position.z = (cube1[3].position.z + Math.sqrt(4.81) * turnSpeed * Math.sin(angle * Math.PI/180 + Math.atan(0.9/turnR)));
+                cube.position.x = (cube.position.x + turnSpeed * Math.cos(angle * Math.PI/180));
+                cube.position.z = (cube.position.z + turnSpeed * Math.sin(angle * Math.PI/180));
+//                    cube.position.x = (cube.position.x + 1.8 * Math.sqrt(2) * (Math.sin(angle*Math.PI/180 + Math.asin(0.01)) - Math.sin(angle)*Math.PI/180));
+//                    cube.position.z = (cube.position.z + 0.01*Math.sin(angle*Math.PI/180));
+                cube.rotation.y = (cube.rotation.y + Math.asin(0.01)) % (Math.PI * 2);
+                //cube.rotateOnAxis(line, 0.00000000000000001);
+                //angle = angle - Math.sqrt(2)/2;
+//                    cube.position.x = cube.position.x + Math.sqrt(100) * (Math.sin(q_x + 0.01) - Math.sin(q_x));
+//                    cube.position.z = cube.position.z + Math.sqrt(100) * (Math.sin(q_z + 0.01) - Math.sin(q_z));
+                //camera.position.y = (camera.position.y + 0.01);
+
+
+                //cube.rotation.y = (cube.rotation.y + Math.sqrt(2)/180) % (Math.PI * 2);
+                //console.log(point);
+                //cube.lookAt(point);
+                angle = angle - Math.asin(0.01)/(Math.PI/180);
+//                }
+                renderer.render(scene, camera);
+                id = requestAnimationFrame(turnLeft);
+            }
+
+            document.onkeydown = function (event) {
+                if (event && event.keyCode == 87 && id == null){
+                    go();
+                }
+                else if (event && event.keyCode == 83 && id == null){
+                    back();
+                }
+                else if (event && event.keyCode == 65 && id == null){
+                    cube1[0].rotation.y =  (cube1[0].rotation.y + 45*Math.PI/180) % (Math.PI * 2);
+                    cube1[2].rotation.y =  (cube1[2].rotation.y + 45*Math.PI/180) % (Math.PI * 2);
+                    renderer.render(scene, camera);
+
+                    turnLeft();
+                }
+            }
+            document.onkeyup = function (event) {
+                if (event && event.keyCode == 87){
+                    cancelAnimationFrame(id);
+                    id = null;
+                }
+                else if (event && event.keyCode == 83){
+                    cancelAnimationFrame(id);
+                    id = null;
+                }
+                else if (event && event.keyCode == 65){
+                    cube1[0].rotation.y =  (cube1[0].rotation.y - 45*Math.PI/180) % (Math.PI * 2);
+                    cube1[2].rotation.y =  (cube1[2].rotation.y - 45*Math.PI/180) % (Math.PI * 2);
+                    renderer.render(scene, camera);
+                    cancelAnimationFrame(id);
+                    id = null;
+                }
+            }
+            //go();
+        }
+
+
+
+
+        //            setTimeout(10000);
+        //            camera.position.set(6,5,-8);
+        //            renderer.render(scene, camera);
+        //            setTimeout(10000);
+        //            camera.position.set(-5,5,-4);
+        //            renderer.render(scene, camera);
+
+        //        function click(i) {
+        //            switch (i){
+        //                case 1: camera.position.set(6,5,10);
+        //                case 2: camera.position.set(6,5,-8);
+        //                case 3: camera.position.set(-5,5,-4);
+        //            }
+        //
+        //        }
+    </script>
+</head>
+
+<body onload="init()">
+
+<canvas id="mainCanvas"></canvas>
+</body>
+</html>

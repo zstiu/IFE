@@ -19,7 +19,7 @@
             });
             renderer.shadowMapEnabled = true;
             renderer.shadowMapSoft = true;//软阴影
-            renderer.setClearColor(0x000000); // black
+            renderer.setClearColor(0xC0C0C0); // black
 
             // scene
             var scene = new THREE.Scene();
@@ -29,6 +29,8 @@
             camera.position.set(7, 5, 10);
             camera.lookAt({x:0,y:0,z:0});
             scene.add(camera);
+
+
 
             //设置平行光
             var light = new THREE.DirectionalLight(0xffffff,0.5);
@@ -41,7 +43,7 @@
             scene.add(light);
 
             //设置环境光  白色
-            scene.add(new THREE.AmbientLight(0x778899))
+            scene.add(new THREE.AmbientLight(0x778899));
 
             //侧面纹理
             var materials = [];

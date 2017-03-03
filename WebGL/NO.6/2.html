@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="three.js"></script>
+    <script type="text/javascript" src="TrackballControls.js"></script>
+    <script type="text/javascript" src="stats.min.js"></script>
+    <script type = "text/javascript" src="OBJLoader.js"></script>
+    <script type = "text/javascript" src="MTLLoader.js"></script>
+    <style>canvas { width: 100%; height: 100% }
+
+     body {
+         margin: 0px;
+         overflow: hidden;
+     }
+    .info {
+        position: absolute;
+        top: 0px; width: 100%;
+
+        padding: 5px;
+        font-family:Monospace;
+        font-size:13px;
+        font-weight: bold;
+        text-align:center;
+    }
+    </style>
+    <script type="text/javascript">
+
+
+
+
+        function init() {
+
+
+            function render() {
+                renderer.render( scene, camera );
+                stats.update();
+            }
+            // renderer
+            var renderer = new THREE.WebGLRenderer({
+                canvas: document.getElementById('mainCanvas')
+            });
+            renderer.shadowMapEnabled = true;//开启阴影
+            renderer.shadowMapSoft = true;//软阴影
+            renderer.setClearColor(0xC0C0C0); // black
+
+            //监听fps
+            var stats;
+            stats = new Stats();
+            document.body.appendChild( stats.dom );
+
+            // scene
+            var scene = new THREE.Scene();
+
+            // camera
+            var camera = new THREE.PerspectiveCamera(400, window.innerWidth/window.innerHeight, 1, 500);
+            camera.position.set(0, 5, 15);
+            camera.lookAt({x:0,y:0,z:0});
+
+            //设置监听camera
+            //各个参数的意思(函数库用起来真爽)
+            var controls = new THREE.TrackballControls( camera );
+            controls.rotateSpeed = 1.0;
+            controls.zoomSpeed = 1.2;
+            controls.panSpeed = 0.8;
+            controls.noZoom = false;
+            controls.noPan = false;
+            controls.staticMoving = true;
+            controls.dynamicDampingFactor = 0.3;
+            controls.keys = [ 65, 83, 68 ];
+            controls.addEventListener( 'change', render );
+
+
+
+            //设置平行光
+            var light = new THREE.DirectionalLight(0xffffff,0.5);
+            light.position.set(-6, 5, 3);
+            light.castShadow = true; //允许阴影
+
+            light.shadowCameraNear = 0;
+            light.shadowCameraVisible = true//开启调试
+
+            scene.add(light);
+
+            //设置环境光  白色
+            scene.add(new THREE.AmbientLight(0x778899));
+
+            //添加一条直线的函数整合
+            function getLine(arr1, arr2) {
+                var geometry = new THREE.Geometry();
+                //var geometry2 = new THREE.Geometry();
+                var material = new THREE.LineBasicMaterial( { vertexColors: true } );
+                var color1 = new THREE.Color( 0xFFFFFF ), color2 = new THREE.Color( 0xFFFFFF );
+
+                // 线的材质可以由2点的颜色决定
+                var p1 = new THREE.Vector3( arr1[0], arr1[1], arr1[2] );
+                var p2 = new THREE.Vector3(  arr2[0], arr2[1], arr2[2] );
+                //var p3 = new THREE.Vector3(  0, 100, 0 );
+                //var p4 = new THREE.Vector3(  0, 0, 100 );
+                geometry.vertices.push(p1);
+                geometry.vertices.push(p2);
+                geometry.colors.push( color1, color2 );
+
+                return new THREE.Line( geometry, material, THREE.LinePieces );
+
+            }
+
+            //添加坐标轴
+            scene.add(getLine([-100, 0, 0], [100, 0, 0]));
+            scene.add(getLine([0, -100, 0], [0, 100, 0]));
+            scene.add(getLine([0, 0, -100], [0, 0, 100]));
+
+
+            //添加平面
+            var plane = new THREE.Mesh(new THREE.PlaneGeometry(20, 20),
+                new THREE.MeshLambertMaterial({
+                    color: 0x6B8E23,
+                 //   map: texturePlane
+                    //wireframe: true
+                })
+            );
+            plane.receiveShadow = true;
+            plane.rotation.x = -90 * Math.PI / 180;
+            plane.position.y = -1.55;
+            scene.add(plane);
+            renderer.render(scene, camera);
+
+            var loader = new THREE.OBJLoader();
+            loader.load('male02/male02.obj', function (obj) {
+                mesh = obj; //存储至全局变量
+                scene.add(obj);
+            })
+
+            // render
+            renderer.setSize(window.innerWidth,window.innerHeight);
+
+            renderer.render(scene, camera);
+        }
+
+    </script>
+</head>
+
+<body onload="init()">
+<h1 class="info">按w前进，s后退，a前行左转，d前行右转(未考虑按键组合联动和后退转弯)
+    <br> 还有拐弯像漂移一样，丑爆了</h1>
+<canvas id="mainCanvas"></canvas>
+</body>
+</html>

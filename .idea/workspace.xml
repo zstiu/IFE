@@ -2,49 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="90a39b6e-bf08-4ead-bc56-861e9bf986b9" name="Default" comment="NO.1">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/leeperrysmith/Infinite-Level_02_Disp_NoSmoothUV-4096.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/leeperrysmith/Infinite-Level_02_Tangent_SmoothUV.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/leeperrysmith/Map-COL.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/leeperrysmith/Map-SPEC.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/lightmap/lightmap-ao-shadow.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/lightmap/rocks.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/lightmap/stone.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/male02/01_-_Default1noCulling.JPG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/male02/01_-_Default1noCulling.dds" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/male02/Male02_bin.bin" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/male02/male-02-1noCulling.JPG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/male02/male-02-1noCulling.dds" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/male02/orig_02_-_Defaul1noCulling.JPG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/male02/orig_02_-_Defaul1noCulling.dds" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/walt/WaltHead_bin.bin" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/2.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/3.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/MTLLoader.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/OBJLoader.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/TrackballControls.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/leeperrysmith/.htaccess" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/leeperrysmith/LeePerrySmith.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/leeperrysmith/LeePerrySmith.obj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/leeperrysmith/LeePerrySmith_License.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/lightmap/lightmap.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/lightmap/readme.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/male02/.htaccess" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/male02/Male02_bin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/male02/Male02_dds.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/male02/Male02_slim.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/male02/male02.mtl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/male02/male02.obj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/male02/male02_dds.mtl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/male02/readme.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/stats.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/three.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/walt/.htaccess" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/walt/WaltHead.mtl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/walt/WaltHead.obj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/walt/WaltHead_bin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.6/walt/WaltHead_slim.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebGL/NO.5/3.html" afterPath="$PROJECT_DIR$/WebGL/NO.5/3.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebGL/NO.4/3.html" afterPath="$PROJECT_DIR$/WebGL/NO.4/3.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -92,11 +50,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="3.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="3.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebGL/NO.6/3.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="534">
               <caret line="176" column="34" lean-forward="false" selection-start-line="176" selection-start-column="34" selection-end-line="176" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="3.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/WebGL/NO.4/3.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="485">
+              <caret line="309" column="0" lean-forward="false" selection-start-line="309" selection-start-column="0" selection-end-line="309" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -151,10 +119,10 @@
         <option value="$PROJECT_DIR$/WebGL/NO.2/1.html" />
         <option value="$PROJECT_DIR$/WebGL/NO.2/3.html" />
         <option value="$PROJECT_DIR$/WebGL/NO.3/3.html" />
-        <option value="$PROJECT_DIR$/WebGL/NO.4/3.html" />
         <option value="$PROJECT_DIR$/WebGL/NO.5/test.html" />
         <option value="$PROJECT_DIR$/WebGL/NO.5/3.html" />
         <option value="$PROJECT_DIR$/WebGL/NO.6/3.html" />
+        <option value="$PROJECT_DIR$/WebGL/NO.4/3.html" />
       </list>
     </option>
   </component>
@@ -199,6 +167,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="WebGL" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IFE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IFE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebGL" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NO.4" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -323,7 +309,7 @@
       <workItem from="1488368709843" duration="1198000" />
       <workItem from="1488419622780" duration="1936000" />
       <workItem from="1488454999238" duration="592000" />
-      <workItem from="1488506418413" duration="7834000" />
+      <workItem from="1488506418413" duration="8019000" />
     </task>
     <task id="LOCAL-00001" summary="NO.1">
       <created>1487939482862</created>
@@ -336,13 +322,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="103571000" />
+    <option name="totallyTimeSpent" value="103756000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="492" y="86" width="1400" height="911" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2767341" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2767341" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25125" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -587,13 +573,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebGL/NO.4/3.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="355" column="21" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="432" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WebGL/NO.5/test.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6916">
@@ -717,6 +696,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="534">
           <caret line="176" column="34" lean-forward="false" selection-start-line="176" selection-start-column="34" selection-end-line="176" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebGL/NO.4/3.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="309" column="0" lean-forward="false" selection-start-line="309" selection-start-column="0" selection-end-line="309" selection-end-column="0" />
           <folding />
         </state>
       </provider>

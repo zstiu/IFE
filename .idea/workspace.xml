@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="90a39b6e-bf08-4ead-bc56-861e9bf986b9" name="Default" comment="NO.1">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebGL/NO.4/3.html" afterPath="$PROJECT_DIR$/WebGL/NO.4/3.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebGL/NO.6/3.html" afterPath="$PROJECT_DIR$/WebGL/NO.6/3.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -50,20 +50,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="3.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="3.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/WebGL/NO.6/3.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="534">
-              <caret line="176" column="34" lean-forward="false" selection-start-line="176" selection-start-column="34" selection-end-line="176" selection-end-column="34" />
+            <state relative-caret-position="420">
+              <caret line="179" column="51" lean-forward="false" selection-start-line="179" selection-start-column="51" selection-end-line="179" selection-end-column="51" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="3.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="3.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebGL/NO.4/3.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
+            <state relative-caret-position="2024">
               <caret line="309" column="0" lean-forward="false" selection-start-line="309" selection-start-column="0" selection-end-line="309" selection-end-column="0" />
               <folding />
             </state>
@@ -121,8 +121,8 @@
         <option value="$PROJECT_DIR$/WebGL/NO.3/3.html" />
         <option value="$PROJECT_DIR$/WebGL/NO.5/test.html" />
         <option value="$PROJECT_DIR$/WebGL/NO.5/3.html" />
-        <option value="$PROJECT_DIR$/WebGL/NO.6/3.html" />
         <option value="$PROJECT_DIR$/WebGL/NO.4/3.html" />
+        <option value="$PROJECT_DIR$/WebGL/NO.6/3.html" />
       </list>
     </option>
   </component>
@@ -309,7 +309,7 @@
       <workItem from="1488368709843" duration="1198000" />
       <workItem from="1488419622780" duration="1936000" />
       <workItem from="1488454999238" duration="592000" />
-      <workItem from="1488506418413" duration="8019000" />
+      <workItem from="1488506418413" duration="8421000" />
     </task>
     <task id="LOCAL-00001" summary="NO.1">
       <created>1487939482862</created>
@@ -322,7 +322,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="103756000" />
+    <option name="totallyTimeSpent" value="104158000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="492" y="86" width="1400" height="911" extended-state="0" />
@@ -692,18 +692,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebGL/NO.6/3.html">
+    <entry file="file://$PROJECT_DIR$/WebGL/NO.4/3.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="534">
-          <caret line="176" column="34" lean-forward="false" selection-start-line="176" selection-start-column="34" selection-end-line="176" selection-end-column="34" />
+        <state relative-caret-position="2024">
+          <caret line="309" column="0" lean-forward="false" selection-start-line="309" selection-start-column="0" selection-end-line="309" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebGL/NO.4/3.html">
+    <entry file="file://$PROJECT_DIR$/WebGL/NO.6/3.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="309" column="0" lean-forward="false" selection-start-line="309" selection-start-column="0" selection-end-line="309" selection-end-column="0" />
+        <state relative-caret-position="420">
+          <caret line="179" column="51" lean-forward="false" selection-start-line="179" selection-start-column="51" selection-end-line="179" selection-end-column="51" />
           <folding />
         </state>
       </provider>

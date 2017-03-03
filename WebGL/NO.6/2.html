@@ -7,6 +7,8 @@
     <script type="text/javascript" src="stats.min.js"></script>
     <script type = "text/javascript" src="OBJLoader.js"></script>
     <script type = "text/javascript" src="MTLLoader.js"></script>
+    <script type = "text/javascript" src="FBXLoader2.js"></script>
+
     <style>canvas { width: 100%; height: 100% }
 
      body {
@@ -111,25 +113,99 @@
             scene.add(getLine([0, 0, -100], [0, 0, 100]));
 
 
+            //适配浏览器
+            var requestAnimationFrame = window.requestAnimationFrame
+                || window.mozRequestAnimationFrame
+                || window.webkitRequestAnimationFrame
+                || window.msRequestAnimationFrame;
+            window.requestAnimationFrame = requestAnimationFrame;
+            function animate() {
+                requestAnimationFrame( animate );
+                controls.update();
+            }
+
+            animate();
+
+
             //添加平面
+
+
             var plane = new THREE.Mesh(new THREE.PlaneGeometry(20, 20),
                 new THREE.MeshLambertMaterial({
-                    color: 0x6B8E23,
-                 //   map: texturePlane
+                    color: 0xffffff,
+                    //map: texturePlane
                     //wireframe: true
                 })
             );
             plane.receiveShadow = true;
             plane.rotation.x = -90 * Math.PI / 180;
-            plane.position.y = -1.55;
+            //plane.position.y = -1.55;
             scene.add(plane);
             renderer.render(scene, camera);
 
+            var mesh = new THREE.Mesh();
             var loader = new THREE.OBJLoader();
-            loader.load('male02/male02.obj', function (obj) {
-                mesh = obj; //存储至全局变量
-                scene.add(obj);
-            })
+            //loader.load('male02/male02.obj', function (obj) {
+
+            var onProgress = function ( xhr ) {
+                if ( xhr.lengthComputable ) {
+                    var percentComplete = xhr.loaded / xhr.total * 100;
+                }
+            };
+
+            var onError = function ( xhr ) { };
+
+            var mtlLoader = new THREE.MTLLoader();
+            mtlLoader.setBaseUrl( 'car1/' );
+            mtlLoader.setPath( 'car1/' );
+            mtlLoader.load( 'Avent.mtl', function( materials ) {
+                materials.preload();
+
+                var objLoader = new THREE.OBJLoader();
+                objLoader.setMaterials( materials );
+                objLoader.setPath( 'car1/' );
+                objLoader.load( 'Avent.obj', function ( object ) {
+
+                    object.castShadow = true;
+
+                    object.traverse(function(child) {
+                        if (child instanceof THREE.Mesh) {
+                            child.material.side = THREE.DoubleSide;
+                        }
+                    });
+
+                    mesh = object;
+
+                    scene.add( object );
+                    renderer.render(scene, camera);
+
+                }, onProgress, onError );
+
+            });
+
+//            var loaderRoad = new THREE.FBXLoader();
+//            loaderRoad.load('road_track/road_track.fbx', function (obj) {
+//                mesh = obj;
+//                scene.add(obj);
+//                console.log("success")
+//                renderer.render(scene, camera);
+//            });
+
+
+            function draw() {
+                stats.begin();
+                renderer.render(scene, camera);
+
+                mesh.rotation.y += 0.01;
+                if (mesh.rotation.y > Math.PI * 2) {
+                    mesh.rotation.y -= Math.PI * 2;
+                }
+                stats.end();
+                requestAnimationFrame(draw);
+            }
+            draw();
+
+
 
             // render
             renderer.setSize(window.innerWidth,window.innerHeight);
@@ -141,8 +217,7 @@
 </head>
 
 <body onload="init()">
-<h1 class="info">按w前进，s后退，a前行左转，d前行右转(未考虑按键组合联动和后退转弯)
-    <br> 还有拐弯像漂移一样，丑爆了</h1>
+
 <canvas id="mainCanvas"></canvas>
 </body>
 </html>

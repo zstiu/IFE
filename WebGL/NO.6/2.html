@@ -15,7 +15,7 @@
          margin: 0px;
          overflow: hidden;
      }
-    .info {
+    #info {
         position: absolute;
         top: 0px; width: 100%;
 
@@ -179,7 +179,15 @@
                     scene.add( object );
                     renderer.render(scene, camera);
 
-                }, onProgress, onError );
+                }, function (xml) {
+                    var ele = document.getElementById("jindu");
+                    //ele.className = "info"
+                    var baifenshu = 100*xml.loaded/xml.total;
+                    baifenshu = baifenshu-baifenshu%1;
+                    ele.innerHTML = baifenshu;
+                    //document.write(xml.loaded/xml.total);
+                    console.log(xml.loaded/xml.total);
+                }, onError );
 
             });
 
@@ -218,6 +226,7 @@
 
 <body onload="init()">
 
+<h1 id="info">加载已经完成<scan id="jindu"></scan>%</h1>
 <canvas id="mainCanvas"></canvas>
 </body>
 </html>

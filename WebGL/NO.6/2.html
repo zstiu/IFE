@@ -147,11 +147,11 @@
             var loader = new THREE.OBJLoader();
             //loader.load('male02/male02.obj', function (obj) {
 
-            var onProgress = function ( xhr ) {
-                if ( xhr.lengthComputable ) {
-                    var percentComplete = xhr.loaded / xhr.total * 100;
-                }
-            };
+//            var onProgress = function ( xhr ) {
+//                if ( xhr.lengthComputable ) {
+//                    var percentComplete = xhr.loaded / xhr.total * 100;
+//                }
+//            };
 
             var onError = function ( xhr ) { };
 
@@ -226,7 +226,13 @@
 
 <body onload="init()">
 
-<h1 id="info">加载已经完成<scan id="jindu"></scan>%</h1>
+<h1 id="info">加载已经完成<scan id="jindu"></scan>%
+    <br>
+    找的小车模型太大了
+    <br>
+    还有另一个模型在这里a
+    <a href="http://115.159.26.94:88/WebGL/NO.6/3.html">模型</a>
+</h1>
 <canvas id="mainCanvas"></canvas>
 </body>
 </html>

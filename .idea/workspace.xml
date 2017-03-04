@@ -41,21 +41,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="2.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/WebGL/NO.6/2.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="2" selection-end-line="153" selection-end-column="16" />
+            <state relative-caret-position="570">
+              <caret line="30" column="5" lean-forward="false" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="3.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="3.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebGL/NO.6/3.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="534">
-              <caret line="236" column="0" lean-forward="true" selection-start-line="236" selection-start-column="0" selection-end-line="236" selection-end-column="0" />
+            <state relative-caret-position="475">
+              <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="28" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -123,8 +123,8 @@
         <option value="$PROJECT_DIR$/WebGL/NO.5/3.html" />
         <option value="$PROJECT_DIR$/WebGL/NO.4/3.html" />
         <option value="$PROJECT_DIR$/WebGL/NO.3/3.html" />
-        <option value="$PROJECT_DIR$/WebGL/NO.6/2.html" />
         <option value="$PROJECT_DIR$/WebGL/NO.6/3.html" />
+        <option value="$PROJECT_DIR$/WebGL/NO.6/2.html" />
       </list>
     </option>
   </component>
@@ -135,8 +135,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="269" />
-    <option name="y" value="123" />
+    <option name="x" value="387" />
+    <option name="y" value="79" />
     <option name="width" value="1400" />
     <option name="height" value="911" />
   </component>
@@ -404,7 +404,7 @@
       <workItem from="1488419622780" duration="1936000" />
       <workItem from="1488454999238" duration="592000" />
       <workItem from="1488506418413" duration="13262000" />
-      <workItem from="1488593486981" duration="3757000" />
+      <workItem from="1488593486981" duration="4502000" />
     </task>
     <task id="LOCAL-00001" summary="NO.1">
       <created>1487939482862</created>
@@ -417,10 +417,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="112756000" />
+    <option name="totallyTimeSpent" value="113501000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="269" y="123" width="1400" height="911" extended-state="0" />
+    <frame x="387" y="79" width="1400" height="911" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2767341" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -786,18 +786,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebGL/NO.6/2.html">
+    <entry file="file://$PROJECT_DIR$/WebGL/NO.6/3.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="2" selection-end-line="153" selection-end-column="16" />
+        <state relative-caret-position="475">
+          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="28" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebGL/NO.6/3.html">
+    <entry file="file://$PROJECT_DIR$/WebGL/NO.6/2.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="534">
-          <caret line="236" column="0" lean-forward="true" selection-start-line="236" selection-start-column="0" selection-end-line="236" selection-end-column="0" />
+        <state relative-caret-position="570">
+          <caret line="30" column="5" lean-forward="false" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
           <folding />
         </state>
       </provider>

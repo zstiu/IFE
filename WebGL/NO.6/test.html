@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+</head>
+
+<body>
+    <div id = "info">未接收</div>
+
+
+    <script type="text/javascript">
+
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+        {
+            //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {
+            // IE6, IE5 浏览器执行代码
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        xmlhttp.onreadystatechange = function  () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("info").innerHTML=xmlhttp.responseText;
+                document.createElement("img");
+            }
+            // body... 
+        }
+        xmlhttp.open("POST","http://localhost:8080/server2.0/getrealnameinfo",true);
+        xmlhttp.setRequestHeader("Content-type","application/json");
+        xmlhttp.send('"userID": "A080848D4DCB4D4CAE29DA7376426E7D"')
+
+    </script>
+</body>
+</html>

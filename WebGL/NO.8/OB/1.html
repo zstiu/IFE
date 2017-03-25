@@ -1,0 +1,459 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="three.js"></script>
+    <script type="text/javascript" src="TrackballControls.js"></script>
+    <script type="text/javascript" src="stats.min.js"></script>
+    <script type="text/javascript" src="js/simplex-noise.js"></script>
+    <script type="text/javascript" src="../physi.js"></script>
+    <!--<script type = "text/javascript" src="OBJLoader.js"></script>-->
+    <!--<script type = "text/javascript" src="MTLLoader.js"></script>-->
+    <style>canvas { width: 100%; height: 100% }
+
+    body {
+        margin: 0px;
+        overflow: hidden;
+    }
+    #info {
+        position: absolute;
+        top: 0px; width: 100%;
+
+        padding: 5px;
+        font-family:Monospace;
+        font-size:13px;
+        font-weight: bold;
+        text-align:center;
+    }
+    scan{
+        font-size: 50px;
+
+    }
+    </style>
+    <script type="text/javascript">
+
+        Physijs.scripts.worker = '../physijs_worker.js';
+        Physijs.scripts.ammo = 'OB/js/ammo.js';
+
+
+        function init() {
+            var vehicle, input;
+            var mesh;
+            var nowZ = 1, nowF = 1, nowAdd = 0;
+
+
+            function render() {
+                renderer.render( scene, camera );
+                stats.update();
+            }
+            // renderer
+            var renderer = new THREE.WebGLRenderer({
+                canvas: document.getElementById('mainCanvas')
+            });
+            renderer.shadowMapEnabled = true;//开启阴影
+            renderer.shadowMapSoft = true;//软阴影
+            renderer.setClearColor(0xC0C0C0); // black
+
+            //监听fps
+            var stats;
+            stats = new Stats();
+            document.body.appendChild( stats.dom );
+
+            // scene
+            //var scene = new THREE.Scene();
+            var scene = new Physijs.Scene();
+            scene.setGravity(new THREE.Vector3(0, -30, 0));//重力
+            
+            scene.addEventListener("update", function () {
+                //操作方向
+                if ( input && vehicle ) {
+                    if ( input.direction !== null ) {
+                        input.steering += input.direction / 50;
+                        if ( input.steering < -.6 ) input.steering = -.6;
+                        if ( input.steering > .6 ) input.steering = .6;
+                    }
+                    vehicle.setSteering( input.steering, 0 );
+                    vehicle.setSteering( input.steering, 1 );
+
+                    //提供向前的动力
+                    if ( input.power === true ) {
+                        vehicle.applyEngineForce( 300 );
+                    } else if ( input.power === false ) {
+                        //减速/刹车
+                        vehicle.setBrake( 20, 2 );
+                        vehicle.setBrake( 20, 3 );
+                    } else {
+                        vehicle.applyEngineForce( 0 );
+                    }
+                }
+
+                scene.simulate( undefined, 2 );
+                stats.update();
+            })
+
+            // camera
+            var camera = new THREE.PerspectiveCamera(400, window.innerWidth/window.innerHeight, 1, 5000);
+            camera.position.set(10, 50, 120);
+            camera.lookAt({x:0,y:0,z:0});
+
+            //设置监听camera
+            //各个参数的意思(函数库用起来真爽)
+            var controls = new THREE.TrackballControls( camera );
+            controls.rotateSpeed = 1.0;
+            controls.zoomSpeed = 1.2;
+            controls.panSpeed = 0.8;
+            controls.noZoom = false;
+            controls.noPan = false;
+            controls.staticMoving = true;
+            controls.dynamicDampingFactor = 0.3;
+            controls.keys = [ 65, 83, 68 ];
+            controls.addEventListener( 'change', render );
+
+
+
+            //设置平行光
+            var light = new THREE.DirectionalLight(0xffffff,0.5);
+            light.position.set(0, 5, -3);
+            light.castShadow = true; //允许阴影
+
+            //light.shadowCameraNear = 0;
+            //light.shadowCameraVisible = true//开启调试
+
+            scene.add(light);
+
+            //设置环境光  白色
+            scene.add(new THREE.AmbientLight(0x778899));
+
+
+
+
+            //添加一条直线的函数整合
+            function getLine(arr1, arr2) {
+                var geometry = new THREE.Geometry();
+                //var geometry2 = new THREE.Geometry();
+                var material = new THREE.LineBasicMaterial( { vertexColors: true } );
+                var color1 = new THREE.Color( 0xFFFFFF ), color2 = new THREE.Color( 0xFFFFFF );
+
+                // 线的材质可以由2点的颜色决定
+                var p1 = new THREE.Vector3( arr1[0], arr1[1], arr1[2] );
+                var p2 = new THREE.Vector3(  arr2[0], arr2[1], arr2[2] );
+                //var p3 = new THREE.Vector3(  0, 100, 0 );
+                //var p4 = new THREE.Vector3(  0, 0, 100 );
+                geometry.vertices.push(p1);
+                geometry.vertices.push(p2);
+                geometry.colors.push( color1, color2 );
+
+                return new THREE.Line( geometry, material, THREE.LinePieces );
+
+            }
+
+            //添加坐标轴
+            scene.add(getLine([-100, 0, 0], [100, 0, 0]));
+            scene.add(getLine([0, -100, 0], [0, 100, 0]));
+            scene.add(getLine([0, 0, -100], [0, 0, 100]));
+
+
+            //添加跑道以及障碍物
+            function addGround() {
+                var plane = new Physijs.HeightfieldMesh(new THREE.PlaneGeometry(50, 200),
+                    Physijs.createMaterial(
+                        new THREE.MeshLambertMaterial({
+                            color: 0x6B8E23
+                            //map: texturePlane
+                            //wireframe: true
+                        }),
+                        .4, // high friction  摩擦系数
+                        .4 // low restitution 弹性形变
+                    ),
+                    0
+                );
+                plane.receiveShadow = true;
+                plane.rotation.x = -90 * Math.PI / 180;
+                plane.position.z = 200 * nowAdd;
+//                nowF++;
+//                nowZ++;
+                scene.add(plane);
+
+                //在跑道上设置障碍物
+
+                    //var box_geometry = new THREE.BoxGeometry( 4, 4, 4 );
+                    var	handleCollision = function( collided_with, linearVelocity, angularVelocity ) {
+//                        console.log("1");
+//                        console.log(collided_with);
+//                        console.log(mesh);
+                        var that = this;
+                        if (collided_with == mesh){
+                           // that.material = undefined;
+
+                            setInterval(function () {
+                                that.material = new THREE.MeshBasicMaterial({
+                                    //color: 0xffff00,
+                                opacity: 1,
+                                    wireframe: true
+                                });
+                            }, 1000);
+                            setTimeout(function () {
+
+                                setInterval(function () {
+                                    that.material = new THREE.MeshBasicMaterial({
+                                        color: 0x787878,
+//                                opacity: 0.25
+                                    });
+                                }, 1000)
+                            }, 500)
+
+                            setTimeout(function () {
+                                scene.remove(that);
+                            },3000);
+                            //scene.remove(this)//, 2000);
+                        }
+                    };
+                    //var	createBox = function() {
+                        var box = new Physijs.BoxMesh(new THREE.BoxGeometry(2,2,2),
+                            Physijs.createMaterial(
+                                new THREE.MeshLambertMaterial({
+                                    color: 0x787878
+                                    //map: texturePlane
+                                    //wireframe: true
+                                }),
+                                .4, // high friction  摩擦系数
+                                .4 // low restitution 弹性形变
+                            )
+                        );
+                        box.castShadow = box.receiveShadow = true;
+                        box.position.set(
+                            15,
+                            5,
+                            25
+                        );
+                        //box.castShadow = true;
+                        box.addEventListener( 'collision', handleCollision );
+                        //box.addEventListener( 'ready', spawnBox );
+                        scene.add( box );
+                    //};
+
+                
+                
+
+                //scene.add( box );
+
+
+                plane = new Physijs.HeightfieldMesh(new THREE.PlaneGeometry(50, 200),
+                    Physijs.createMaterial(
+                        new THREE.MeshLambertMaterial({
+                            color: 0x000000
+                            //map: texturePlane
+                            //wireframe: true
+                        }),
+                        .4, // high friction  摩擦系数
+                        .9 // low restitution 弹性形变
+                    ),
+                    0
+                );
+                plane.receiveShadow = true;
+                //plane.rotation.y = 30 * Math.PI / 180;
+                plane.rotation.y = -90 * Math.PI / 180;
+                plane.rotation.z = 90 * Math.PI / 180;
+                //plane.rotation.x = 30 * Math.PI / 180;
+                plane.position.x = 25;
+                plane.position.z = 200 * nowAdd;
+
+                var plane1 = plane.clone();
+                var plane2 = plane.clone();
+                plane2.rotation.y = -30 * Math.PI / 180;
+                scene.add(plane2);
+                plane1.rotation.y = 30 * Math.PI / 180;
+                plane1.position.x = -25;
+                scene.add(plane1);
+                
+            };
+            addGround();
+            
+
+
+
+
+
+
+
+
+
+            //适配浏览器
+            var requestAnimationFrame = window.requestAnimationFrame
+                || window.mozRequestAnimationFrame
+                || window.webkitRequestAnimationFrame
+                || window.msRequestAnimationFrame;
+            window.requestAnimationFrame = requestAnimationFrame;
+            function animate() {
+                requestAnimationFrame( animate );
+
+                if ( vehicle ) {
+                    //console.log(nowZ);
+                    if((nowZ * 200 -100 - vehicle.mesh.position.z) < 10 ){
+                        nowAdd = nowZ;
+                        addGround();
+                        nowZ++;
+                    }
+                    else if((vehicle.mesh.position.z + nowF * 200 - 100) < 10 ){
+                        nowAdd = -nowF;
+                        addGround();
+                        nowF++;
+                    }
+
+                    camera.position.copy( vehicle.mesh.position ).add( new THREE.Vector3(10, 50, 120) );
+                    camera.lookAt( vehicle.mesh.position );
+
+
+
+//                    light.target.position.copy( vehicle.mesh.position );
+//                    light.position.addVectors( light.target.position, new THREE.Vector3( 20, 20, -15 ) );
+                }
+                renderer.render( scene, camera );
+                stats.update();
+                //controls.update();
+            }
+
+            //animate();
+
+
+            //loader.load('male02/male02.obj', function (obj) {
+
+//            var onProgress = function ( xhr ) {
+//                if ( xhr.lengthComputable ) {
+//                    var percentComplete = xhr.loaded / xhr.total * 100;
+//                }
+//            };
+            var mesh;
+
+            var json_loader = new THREE.JSONLoader();
+
+            json_loader.load( "models/mustang.js", function( car, car_materials ) {
+                json_loader.load( "models/mustang_wheel.js", function( wheel, wheel_materials ) {
+                    mesh = new Physijs.BoxMesh(
+                        car,
+                        new THREE.MeshFaceMaterial( car_materials )
+                    );
+                    mesh.position.y = 2;
+                    mesh.castShadow = mesh.receiveShadow = true;
+
+                vehicle = new Physijs.Vehicle(mesh, new Physijs.VehicleTuning(
+                    10.88,
+                    1.83,
+                    0.28,
+                    500,
+                    10.5,
+                    6000
+                    ));
+
+                    scene.add( vehicle );
+
+                    var wheel_material = new THREE.MeshFaceMaterial( wheel_materials );
+
+                    for ( var i = 0; i < 4; i++ ) {
+                        vehicle.addWheel(
+                            wheel,
+                            wheel_material,
+                            new THREE.Vector3(
+                                i % 2 === 0 ? -1.6 : 1.6,
+                                -1,
+                                i < 2 ? 3.3 : -3.2
+                            ),
+                            new THREE.Vector3( 0, -1, 0 ),
+                            new THREE.Vector3( -1, 0, 0 ),
+                            0.5,
+                            0.7,
+                            i < 2 ? false : true
+                        );
+                    }
+
+                    input = {
+                        power: null,
+                        direction: null,
+                        steering: 0 //转向操作
+                    };
+                    document.addEventListener('keydown', function( ev ) {
+                        switch ( ev.keyCode ) {
+                            case 37: // left
+                                input.direction = 1;
+                                break;
+
+                            case 38: // forward
+                                input.power = true;
+                                break;
+
+                            case 39: // right
+                                input.direction = -1;
+                                break;
+
+                            case 40: // back
+                                input.power = false;
+                                break;
+                        }
+                    });
+                    document.addEventListener('keyup', function( ev ) {
+                        switch ( ev.keyCode ) {
+                            case 37: // left
+                                input.direction = null;
+                                break;
+
+                            case 38: // forward
+                                input.power = null;
+                                break;
+
+                            case 39: // right
+                                input.direction = null;
+                                break;
+
+                            case 40: // back
+                                input.power = null;
+                                break;
+                        }
+                    });
+
+                    renderer.render(scene, camera);
+                });
+            });
+
+
+
+//            requestAnimationFrame( render );
+//            scene.simulate();
+            requestAnimationFrame( animate );
+            scene.simulate();
+            renderer.render(scene, camera);
+
+
+
+//            loader.addEventListener('load', function (event) {
+//                var obj = event.content;
+//                mesh = obj;
+//                scene.add(obj);
+//            });
+//            loader.load('walt/WaltHead.obj', 'walt/WaltHead.mtl')
+//
+//
+//            loader.load('walt/WaltHead.obj', function (obj) {
+//                mesh = obj;
+//                scene.add(obj);
+//                renderer.render(scene, camera);
+//            });
+
+
+            // render
+            renderer.setSize(window.innerWidth,window.innerHeight);
+
+            renderer.render(scene, camera);
+
+            //go();
+        }
+
+    </script>
+</head>
+
+<body onload="init()">
+
+
+</h1>
+<canvas id="mainCanvas"></canvas>
+</body>
+</html>

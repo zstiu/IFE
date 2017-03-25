@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="three.js"></script>
+    <script type="text/javascript" src="TrackballControls.js"></script>
+    <script type="text/javascript" src="stats.min.js"></script>
+    <script type = "text/javascript" src="BinaryLoader.js"></script>
+
+
+    <style>canvas { width: 100%; height: 100% }
+
+    body {
+        margin: 0px;
+        overflow: hidden;
+    }
+    #info {
+        position: absolute;
+        top: 0px; width: 100%;
+
+        padding: 5px;
+        font-family:Monospace;
+        font-size:13px;
+        font-weight: bold;
+        text-align:center;
+    }
+    scan{
+        font-size: 50px;
+
+    }
+    </style>
+    <script type="text/javascript">
+
+
+
+
+        function init() {
+
+
+            function render() {
+                renderer.render( scene, camera );
+                stats.update();
+            }
+            // renderer
+            var renderer = new THREE.WebGLRenderer({
+                canvas: document.getElementById('mainCanvas')
+            });
+            renderer.shadowMapEnabled = true;//开启阴影
+            renderer.shadowMapSoft = true;//软阴影
+            renderer.setClearColor(0xC0C0C0); // black
+
+            //监听fps
+            var stats;
+            stats = new Stats();
+            document.body.appendChild( stats.dom );
+
+            // scene
+            var scene = new THREE.Scene();
+
+            // camera
+            var camera = new THREE.PerspectiveCamera(400, window.innerWidth/window.innerHeight, 1, 500);
+            camera.position.set(0, 5, 15);
+            camera.lookAt({x:0,y:0,z:0});
+
+            //设置监听camera
+            //各个参数的意思(函数库用起来真爽)
+            var controls = new THREE.TrackballControls( camera );
+            controls.rotateSpeed = 1.0;
+            controls.zoomSpeed = 1.2;
+            controls.panSpeed = 0.8;
+            controls.noZoom = false;
+            controls.noPan = false;
+            controls.staticMoving = true;
+            controls.dynamicDampingFactor = 0.3;
+            controls.keys = [ 65, 83, 68 ];
+            controls.addEventListener( 'change', render );
+
+
+
+            //设置平行光
+            var light = new THREE.DirectionalLight(0xffffff,0.5);
+            light.position.set(-6, 5, 3);
+            light.castShadow = true; //允许阴影
+
+            light.shadowCameraNear = 0;
+            light.shadowCameraVisible = true//开启调试
+
+            scene.add(light);
+
+            //设置环境光  白色
+            scene.add(new THREE.AmbientLight(0x778899));
+
+            //添加一条直线的函数整合
+            function getLine(arr1, arr2) {
+                var geometry = new THREE.Geometry();
+                //var geometry2 = new THREE.Geometry();
+                var material = new THREE.LineBasicMaterial( { vertexColors: true } );
+                var color1 = new THREE.Color( 0xFFFFFF ), color2 = new THREE.Color( 0xFFFFFF );
+
+                // 线的材质可以由2点的颜色决定
+                var p1 = new THREE.Vector3( arr1[0], arr1[1], arr1[2] );
+                var p2 = new THREE.Vector3(  arr2[0], arr2[1], arr2[2] );
+                //var p3 = new THREE.Vector3(  0, 100, 0 );
+                //var p4 = new THREE.Vector3(  0, 0, 100 );
+                geometry.vertices.push(p1);
+                geometry.vertices.push(p2);
+                geometry.colors.push( color1, color2 );
+
+                return new THREE.Line( geometry, material, THREE.LinePieces );
+
+            }
+
+            //添加坐标轴
+            scene.add(getLine([-100, 0, 0], [100, 0, 0]));
+            scene.add(getLine([0, -100, 0], [0, 100, 0]));
+            scene.add(getLine([0, 0, -100], [0, 0, 100]));
+
+
+            //适配浏览器
+            var requestAnimationFrame = window.requestAnimationFrame
+                || window.mozRequestAnimationFrame
+                || window.webkitRequestAnimationFrame
+                || window.msRequestAnimationFrame;
+            window.requestAnimationFrame = requestAnimationFrame;
+            function animate() {
+                requestAnimationFrame( animate );
+                controls.update();
+            }
+
+            animate();
+
+
+            //添加平面
+
+
+            var plane = new THREE.Mesh(new THREE.PlaneGeometry(20, 20),
+                new THREE.MeshLambertMaterial({
+                    color: 0xffffff,
+                    //map: texturePlane
+                    //wireframe: true
+                })
+            );
+            plane.receiveShadow = true;
+            plane.rotation.x = -90 * Math.PI / 180;
+            //plane.position.y = -1.55;
+            scene.add(plane);
+            renderer.render(scene, camera);
+
+            var mesh = new THREE.Mesh();
+            var loader=new THREE.Loader(true);
+            var binLoader = new THREE.BinaryLoader();
+            //loader.load('male02/male02.obj', function (obj) {
+
+//            var onProgress = function ( xhr ) {
+//                if ( xhr.lengthComputable ) {
+//                    var percentComplete = xhr.loaded / xhr.total * 100;
+//                }
+//            };
+
+            var onError = function ( xhr ) { };
+
+
+                loader.loadBinary( 'http://helloracer.com/webgl/obj/js/BodyPaint.js', function ( object ) {
+
+                    object.castShadow = true;
+
+                    object.traverse(function(child) {
+                        if (child instanceof THREE.Mesh) {
+                            child.material.side = THREE.DoubleSide;
+                        }
+                    });
+
+                    mesh = object;
+
+                    scene.add( object );
+                    renderer.render(scene, camera);
+
+                }, function (xml) {
+                    var ele = document.getElementById("jindu");
+                    //ele.className = "info"
+                    var baifenshu = 100*xml.loaded/xml.total;
+                    baifenshu = baifenshu-baifenshu%1;
+                    ele.innerHTML = baifenshu;
+                    //document.write(xml.loaded/xml.total);
+                    console.log(xml.loaded/xml.total);
+                }, onError );
+
+
+
+//            var loaderRoad = new THREE.FBXLoader();
+//            loaderRoad.load('road_track/road_track.fbx', function (obj) {
+//                mesh = obj;
+//                scene.add(obj);
+//                console.log("success")
+//                renderer.render(scene, camera);
+//            });
+
+
+            function draw() {
+                stats.begin();
+                renderer.render(scene, camera);
+
+                mesh.rotation.y += 0.01;
+                if (mesh.rotation.y > Math.PI * 2) {
+                    mesh.rotation.y -= Math.PI * 2;
+                }
+                stats.end();
+                requestAnimationFrame(draw);
+            }
+            draw();
+
+
+
+            // render
+            renderer.setSize(window.innerWidth,window.innerHeight);
+
+            renderer.render(scene, camera);
+        }
+
+    </script>
+</head>
+
+<body onload="init()">
+
+<h1 id="info">加载已经完成<scan id="jindu"></scan><scan>%</scan>
+    <br>
+    找的小车模型太大了
+    <br>
+    还有另一个模型在这里a
+    <a href="http://115.159.26.94:88/WebGL/NO.6/3.html">模型</a>
+</h1>
+<canvas id="mainCanvas"></canvas>
+</body>
+</html>

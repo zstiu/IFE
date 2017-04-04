@@ -16,6 +16,7 @@
         overflow: hidden;
     }
     #info {
+        color: white;
         position: absolute;
         top: 0px; width: 100%;
 
@@ -73,6 +74,9 @@
                         input.steering += input.direction / 50;
                         if ( input.steering < -.6 ) input.steering = -.6;
                         if ( input.steering > .6 ) input.steering = .6;
+                    }
+                    else {
+                        input.steering = 0;
                     }
                     vehicle.setSteering( input.steering, 0 );
                     vehicle.setSteering( input.steering, 1 );

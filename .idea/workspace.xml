@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="90a39b6e-bf08-4ead-bc56-861e9bf986b9" name="Default" comment="NO.1">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebGL/NO.8/OB/newIssue.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebGL/NO.8/OB/1.html" afterPath="$PROJECT_DIR$/WebGL/NO.8/OB/1.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebGL/NO.8/OB/js/ammo.js" afterPath="$PROJECT_DIR$/WebGL/NO.8/OB/js/ammo.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebGL/NO.8/physijs_worker.js" afterPath="$PROJECT_DIR$/WebGL/NO.8/physijs_worker.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -27,18 +24,8 @@
       <file leaf-file-name="vehicle.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebGL/physijs/examples/vehicle.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="140" column="44" lean-forward="false" selection-start-line="140" selection-start-column="29" selection-end-line="140" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="3.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebGL/NO.6/3.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="587">
-              <caret line="186" column="20" lean-forward="false" selection-start-line="186" selection-start-column="20" selection-end-line="190" selection-end-column="46" />
+            <state relative-caret-position="290">
+              <caret line="103" column="12" lean-forward="false" selection-start-line="103" selection-start-column="12" selection-end-line="103" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -47,8 +34,8 @@
       <file leaf-file-name="1.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/WebGL/NO.8/OB/1.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="625">
-              <caret line="505" column="36" lean-forward="false" selection-start-line="505" selection-start-column="36" selection-end-line="505" selection-end-column="36" />
+            <state relative-caret-position="-5885">
+              <caret line="78" column="43" lean-forward="false" selection-start-line="78" selection-start-column="43" selection-end-line="78" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -442,7 +429,7 @@
       <workItem from="1490547385358" duration="4904000" />
       <workItem from="1490664675924" duration="599000" />
       <workItem from="1491229295848" duration="718000" />
-      <workItem from="1491293459682" duration="3239000" />
+      <workItem from="1491293459682" duration="5356000" />
     </task>
     <task id="LOCAL-00001" summary="NO.1">
       <created>1487939482862</created>
@@ -455,7 +442,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="239812000" />
+    <option name="totallyTimeSpent" value="241929000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -824,14 +811,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebGL/physijs/examples/vehicle.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="140" column="44" lean-forward="false" selection-start-line="140" selection-start-column="29" selection-end-line="140" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WebGL/NO.6/3.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="587">
@@ -840,10 +819,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/WebGL/physijs/examples/vehicle.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="103" column="12" lean-forward="false" selection-start-line="103" selection-start-column="12" selection-end-line="103" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/WebGL/NO.8/OB/1.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="625">
-          <caret line="505" column="36" lean-forward="false" selection-start-line="505" selection-start-column="36" selection-end-line="505" selection-end-column="36" />
+        <state relative-caret-position="-5885">
+          <caret line="78" column="43" lean-forward="false" selection-start-line="78" selection-start-column="43" selection-end-line="78" selection-end-column="43" />
           <folding />
         </state>
       </provider>

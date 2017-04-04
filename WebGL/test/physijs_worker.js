@@ -497,7 +497,6 @@ public_functions.removeObject = function( details ) {
 	Ammo.destroy(_motion_states[details.id]);
     if (_compound_shapes[details.id]) Ammo.destroy(_compound_shapes[details.id]);
 	if (_noncached_shapes[details.id]) Ammo.destroy(_noncached_shapes[details.id]);
-	if (_objects[details.id])
 	var ptr = _objects[details.id].a != undefined ? _objects[details.id].a : _objects[details.id].ptr;
 	delete _objects_ammo[ptr];
 	delete _objects[details.id];

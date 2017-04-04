@@ -41,8 +41,6 @@
             var mesh;
             var nowZ = 1, nowF = 1, nowAdd = 0;
 
-            var Score = 0;
-
 
             function render() {
                 renderer.render( scene, camera );
@@ -78,20 +76,13 @@
                     vehicle.setSteering( input.steering, 1 );
 
                     //提供向前的动力
-                    if ( input.power === true && input.back !==true ) {
+                    if ( input.power === true ) {
                         vehicle.applyEngineForce( 300 );
-                    }
-                    else if(input.power === true && input.back === true ){
-                        vehicle.applyEngineForce( -300 );
-                    }
-//                    else if ( input.power === false || input.back === false) {
-//                        //减速/刹车
-//                        //vehicle.setBrake( 20, 2 );
-//                        vehicle.setBrake( 20, 3 );
-//                    }
-                    else {
-                        //vehicle.setBrake( 20, 2 );
-                        //vehicle.setBrake( 20, 3 );
+                    } else if ( input.power === false ) {
+                        //减速/刹车
+                        vehicle.setBrake( 20, 2 );
+                        vehicle.setBrake( 20, 3 );
+                    } else {
                         vehicle.applyEngineForce( 0 );
                     }
                 }
@@ -171,7 +162,7 @@
                             //map: texturePlane
                             //wireframe: true
                         }),
-                        .9, // high friction  摩擦系数
+                        .4, // high friction  摩擦系数
                         .4 // low restitution 弹性形变
                     ),
                     0
@@ -192,13 +183,7 @@
 //                        console.log(mesh);
                         var that = this;
                         //if (this){
-                            if (collided_with == mesh && that.isBoom === 0){
-
-                            that.isBoom++;
-                                Score++;
-                                var ele = document.getElementById("jindu");
-
-                                ele.innerHTML = Score;
+                            if (collided_with == mesh){
 
                                 //造成闪烁的效果
                                 that.material = new THREE.MeshBasicMaterial({
@@ -270,7 +255,6 @@
 
                         );
                         //box.castShadow = true;
-                        box.isBoom = 0;
                         box.addEventListener( 'collision', handleCollisionBox );
                         //box.addEventListener( 'ready', spawnBox );
                         scene.add( box );
@@ -382,7 +366,6 @@
                     mesh.position.y = 2;
                     mesh.castShadow = mesh.receiveShadow = true;
 
-
                 vehicle = new Physijs.Vehicle(mesh, new Physijs.VehicleTuning(
                     10.88,
                     1.83,
@@ -415,7 +398,6 @@
 
                     input = {
                         power: null,
-                        back: null,
                         direction: null,
                         steering: 0 //转向操作
                     };
@@ -427,7 +409,6 @@
 
                             case 38: // forward
                                 input.power = true;
-                                input.back = false;
                                 break;
 
                             case 39: // right
@@ -435,8 +416,7 @@
                                 break;
 
                             case 40: // back
-                                input.power = true;
-                                input.back = true;
+                                input.power = false;
                                 break;
                         }
                     });
@@ -447,7 +427,7 @@
                                 break;
 
                             case 38: // forward
-                                input.power = false;
+                                input.power = null;
                                 break;
 
                             case 39: // right
@@ -455,8 +435,7 @@
                                 break;
 
                             case 40: // back
-                                input.back = false;
-                                input.power = false;
+                                input.power = null;
                                 break;
                         }
                     });
@@ -503,8 +482,6 @@
 
 <body onload="init()">
 
-<h1 id="info">当前得分<scan id="jindu">0</scan>
-    <scan>分</scan>
 
 </h1>
 <canvas id="mainCanvas"></canvas>
